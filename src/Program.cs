@@ -1,2 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿var fileStream = new FileStream("./test.html", FileMode.Open);
+var streamReader = new StreamReader(fileStream);
+var fileContents = streamReader.ReadToEnd();
+
+Console.WriteLine(fileContents);
