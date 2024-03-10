@@ -20,7 +20,6 @@ for (int i = 0; i < fileContents.Length; i++)
 }
 
 // Extract our HTML tags using the element markers list
-// TODO: This doesn't work right now!
 bool nextHtmlCharSafe = false;
 for (int i = 0; i < htmlCharacters.Count; i++)
 {
