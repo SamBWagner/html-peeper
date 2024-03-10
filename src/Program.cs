@@ -19,24 +19,18 @@ for (int i = 0; i < fileContents.Length; i++)
   }
 }
 
-foreach (var item in htmlCharacters)
-{
-  System.Console.WriteLine($"found character: {item.Item1} at index: {item.Item2}");
-}
-
 // Extract our HTML tags using the element markers list
 // TODO: This doesn't work right now!
-bool nextCharSafe = false;
+bool nextHtmlCharSafe = false;
 for (int i = 0; i < htmlCharacters.Count; i++)
 {
-  nextCharSafe = i != htmlCharacters.Count;
+  nextHtmlCharSafe = i != htmlCharacters.Count;
 
-  Console.WriteLine($"html character under inspection: {htmlCharacters[i]}");
   if (htmlCharacters[i].Item1 == '<') {
-    Console.WriteLine($"character was <");
-    if (nextCharSafe && htmlCharacters[i + 1].Item1 == '>') {
-      Console.WriteLine($"adding element to list: {ExtractHtmlTag(fileContents, i, htmlCharacters[i + 1].Item2)}");
-      elements.Add(ExtractHtmlTag(fileContents, i, htmlCharacters[i + 1].Item2));
+    if (nextHtmlCharSafe && htmlCharacters[i + 1].Item1 == '>') {
+      var start = htmlCharacters[i].Item2 + 1;
+      var end = htmlCharacters[i+1].Item2;
+      elements.Add(fileContents[start..end]);
     }
   }
 }
@@ -55,10 +49,5 @@ bool IsHtmlSpecialCharacter(char character){
     default:
       return false;
   }
-}
-
-string ExtractHtmlTag(string htmlString, int start, int end) {
-  start += 1;
-  return htmlString[start..end];
 }
 
