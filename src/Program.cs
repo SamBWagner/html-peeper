@@ -1,12 +1,25 @@
-﻿string? fileContents = File.ReadAllText("./test.html");
-
-Console.WriteLine("Analysing this HTML file...");
-Console.WriteLine(fileContents);
-
-if (string.IsNullOrWhiteSpace(fileContents)) {
-  Console.WriteLine("File empty");
-  return;
+﻿if (args.Length == 0)
+{
+    Console.WriteLine("No file path provided!");
+    return;
 }
+else if (args.Length > 1)
+{
+    Console.WriteLine("Too many arguments! Provide only one file path.");
+    return;
+}
+
+var path = args[0];
+
+var fileExists = File.Exists(path);
+
+if (!fileExists)
+{
+    Console.WriteLine($"File does not exist: {path}");
+    return;
+}
+
+var fileContents = File.ReadAllText(path);
 
 var elements = new List<string>();
 List<(char, int)> htmlCharacters = new();
